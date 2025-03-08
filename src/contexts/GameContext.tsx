@@ -236,11 +236,11 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           hasPush = true;
           newStatus = "gameOver";
         } else {
-          // Player has blackjack, dealer doesn't
-          const blackjackPayout = state.player.bet * 2.5;
-          playerChips += blackjackPayout;
-          winnings += blackjackPayout - state.player.bet;
-          message = "You win with Blackjack!";
+          // Player has blackjack, dealer doesn't - pays 3:2 (1.5x)
+          const blackjackPayout = state.player.bet * 1.5;
+          playerChips += state.player.bet + blackjackPayout;
+          winnings += blackjackPayout;
+          message = "Blackjack pays 3:2! You win!";
           newStatus = "gameOver";
         }
       } else if (dealerHasBlackjack) {

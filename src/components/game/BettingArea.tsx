@@ -21,10 +21,10 @@ const BettingArea: React.FC = () => {
   };
   
   return (
-    <div className="w-full max-w-md mx-auto bg-black/70 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
-      <h2 className="text-amber-300 text-3xl mb-6 text-center font-bold" style={{ fontFamily: 'Georgia, serif' }}>Place Your Bet</h2>
+    <div className="w-full max-w-lg mx-auto bg-black/80 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
+      <h2 className="text-amber-300 text-4xl mb-8 text-center font-bold" style={{ fontFamily: 'Georgia, serif' }}>Place Your Bet</h2>
       
-      <div className="flex justify-center mb-6 gap-2 flex-wrap">
+      <div className="flex justify-center mb-8 gap-4 flex-wrap">
         {chipValues.map((value) => (
           <ChipStack 
             key={value} 
@@ -35,23 +35,27 @@ const BettingArea: React.FC = () => {
         ))}
       </div>
       
-      <div className="flex flex-col items-center gap-4">
-        <div className="bg-white/10 px-4 py-2 rounded-lg">
-          <span className="text-white">Current Bet: ${state.player.bet}</span>
+      <div className="flex flex-col items-center gap-4 mt-6">
+        <div className="bg-black/50 px-6 py-3 rounded-lg w-full text-center">
+          <span className="text-white text-lg">Current Bet: ${state.player.bet}</span>
         </div>
         
-        <div className="bg-white/10 px-4 py-2 rounded-lg">
-          <span className="text-white">Chips: ${state.player.chips}</span>
+        <div className="bg-black/50 px-6 py-3 rounded-lg w-full text-center">
+          <span className="text-white text-lg">Chips: ${state.player.chips}</span>
         </div>
         
         <Button 
           variant="default" 
-          className="bg-amber-600 hover:bg-amber-700 text-white font-bold w-full mt-2"
+          className="bg-amber-600 hover:bg-amber-700 text-white font-bold w-full mt-4 py-6 text-lg"
           onClick={handlePlaceBet}
           disabled={!selectedBet || selectedBet > state.player.chips}
         >
           Place Bet
         </Button>
+      </div>
+      
+      <div className="text-amber-200 text-sm text-center mt-6">
+        <p>Blackjack pays 3 to 2</p>
       </div>
     </div>
   );

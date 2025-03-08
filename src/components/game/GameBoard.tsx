@@ -13,7 +13,7 @@ const GameBoard: React.FC = () => {
   
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/b93821dc-bb88-4840-b44a-76a313ebadb5.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
+      <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/63fe6dd7-b415-4288-b38f-4069e2e2e3fd.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
         <div className="absolute top-2 left-4 z-10 text-left">
           <h1 className="text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-500 drop-shadow-md" style={{ fontFamily: 'Georgia, serif' }}>
             Royal Flush
@@ -59,21 +59,21 @@ const GameBoard: React.FC = () => {
           </div>
         )}
         
-        {/* Game stats display */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black/80 py-2 px-4 flex justify-between text-white backdrop-blur-sm z-10">
+        {/* Game stats display - fixed to prevent cutoff */}
+        <div className="absolute bottom-0 left-0 right-0 bg-black/90 py-3 px-6 flex justify-between text-white z-10">
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
-            <div className="text-lg font-bold">${player.bet}</div>
+            <div className="text-xl font-bold">${player.bet}</div>
           </div>
           
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-center">
             <div className="text-xs uppercase tracking-wide text-gray-400">BALANCE</div>
-            <div className="text-lg font-bold">${player.chips}</div>
+            <div className="text-xl font-bold">${player.chips}</div>
           </div>
           
           <div className="flex flex-col items-end">
             <div className="text-xs uppercase tracking-wide text-gray-400">WON</div>
-            <div className="text-lg font-bold">${state.player.winnings || 0}</div>
+            <div className="text-xl font-bold">${state.player.winnings || 0}</div>
           </div>
         </div>
       </div>
