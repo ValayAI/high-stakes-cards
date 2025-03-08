@@ -60,20 +60,20 @@ const GameBoard: React.FC = () => {
         )}
         
         {/* Game stats display - fixed to prevent cutoff */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black/90 py-3 px-6 flex justify-between text-white z-10">
+        <div className="absolute bottom-0 left-0 right-0 bg-black/90 py-2 px-6 flex justify-between text-white z-10">
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
-            <div className="text-xl font-bold">${player.bet}</div>
+            <div className="text-base font-bold">${player.bet}</div>
           </div>
           
           <div className="flex flex-col items-center">
             <div className="text-xs uppercase tracking-wide text-gray-400">BALANCE</div>
-            <div className="text-xl font-bold">${player.chips}</div>
+            <div className="text-base font-bold">${player.chips}</div>
           </div>
           
           <div className="flex flex-col items-end">
             <div className="text-xs uppercase tracking-wide text-gray-400">WON</div>
-            <div className="text-xl font-bold">${state.player.winnings || 0}</div>
+            <div className="text-base font-bold">${state.player.winnings || 0}</div>
           </div>
         </div>
       </div>

@@ -381,14 +381,30 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         };
       }
       
-      // Continue the game with current chips amount
+      // Instead of going back to betting state, just reset the hands and prepare for a new round
       return {
-        ...initialState,
+        ...state,
+        deck: [],
         player: {
-          ...initialState.player,
-          chips: state.player.chips,
-          winnings: state.player.winnings,
+          ...state.player,
+          hand: [],
+          score: 0,
+          bet: 0,
+          busted: false,
+          hasBlackjack: false,
+          hasPush: false,
+          isStanding: false,
         },
+        dealer: {
+          ...state.dealer,
+          hand: [],
+          score: 0,
+          busted: false,
+          hasBlackjack: false,
+          isRevealed: false,
+        },
+        status: "betting",
+        message: "Place your bet!",
       };
     }
 

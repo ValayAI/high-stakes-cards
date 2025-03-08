@@ -16,7 +16,7 @@ const BettingArea: React.FC = () => {
   
   const handlePlaceBet = () => {
     if (selectedBet) {
-      placeBet(selectedBet); // This will now trigger the deal cards functionality automatically
+      placeBet(selectedBet);
     }
   };
   
@@ -24,20 +24,20 @@ const BettingArea: React.FC = () => {
     <div className="w-full max-w-lg mx-auto bg-black/80 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
       <h2 className="text-amber-300 text-4xl mb-8 text-center font-bold" style={{ fontFamily: 'Georgia, serif' }}>Place Your Bet</h2>
       
-      <div className="flex justify-center mb-8 gap-4 flex-wrap">
-        {chipValues.map((value) => (
-          <ChipStack 
-            key={value} 
-            amount={value} 
-            onClick={() => handleBet(value)}
-            selected={selectedBet === value}
-          />
-        ))}
-      </div>
-      
       <div className="flex flex-col items-center gap-4 mt-6">
         <div className="bg-black/50 px-6 py-3 rounded-lg w-full text-center">
           <span className="text-white text-lg">Current Bet: ${state.player.bet}</span>
+        </div>
+        
+        <div className="flex justify-center my-4 gap-4 flex-wrap">
+          {chipValues.map((value) => (
+            <ChipStack 
+              key={value} 
+              amount={value} 
+              onClick={() => handleBet(value)}
+              selected={selectedBet === value}
+            />
+          ))}
         </div>
         
         <div className="bg-black/50 px-6 py-3 rounded-lg w-full text-center">
