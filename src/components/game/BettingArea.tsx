@@ -5,7 +5,7 @@ import { useGame } from "@/contexts/GameContext";
 import ChipStack from "./ChipStack";
 
 const BettingArea: React.FC = () => {
-  const { state, placeBet, dealCards } = useGame();
+  const { state, placeBet } = useGame();
   const [selectedBet, setSelectedBet] = useState<number | null>(null);
   
   const chipValues = [5, 25, 50, 100, 500];
@@ -16,13 +16,13 @@ const BettingArea: React.FC = () => {
   
   const handlePlaceBet = () => {
     if (selectedBet) {
-      placeBet(selectedBet);
+      placeBet(selectedBet); // This will now trigger the deal cards functionality automatically
     }
   };
   
   return (
-    <div className="bg-black/40 p-6 rounded-xl shadow-xl">
-      <h2 className="text-white text-2xl mb-4 text-center">Place Your Bet</h2>
+    <div className="bg-black/40 p-6 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
+      <h2 className="text-amber-300 text-2xl mb-4 text-center font-bold">Place Your Bet</h2>
       
       <div className="flex justify-center mb-6 gap-2">
         {chipValues.map((value) => (
@@ -47,19 +47,11 @@ const BettingArea: React.FC = () => {
         <div className="flex gap-4">
           <Button 
             variant="default" 
-            className="bg-emerald-600 hover:bg-emerald-700"
+            className="bg-amber-600 hover:bg-amber-700 text-white font-bold"
             onClick={handlePlaceBet}
             disabled={!selectedBet || selectedBet > state.player.chips}
           >
             Place Bet
-          </Button>
-          
-          <Button 
-            variant="default"
-            onClick={dealCards}
-            disabled={state.player.bet === 0}
-          >
-            Deal Cards
           </Button>
         </div>
       </div>

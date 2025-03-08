@@ -5,7 +5,7 @@ import { GameProvider } from "@/contexts/GameContext";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-black p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-emerald-900 to-gray-900 p-4">
       <GameProvider>
         <GameBoard />
       </GameProvider>

@@ -19,72 +19,49 @@ const GameControls: React.FC = () => {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${color} hover:bg-opacity-90 text-pink-300 p-4 rounded-full flex flex-col items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-all w-16 h-16`}
+      className={`${color} hover:bg-opacity-90 text-amber-100 p-4 rounded-full flex flex-col items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-all w-16 h-16 shadow-md`}
     >
       {icon}
-      <span className="text-xs mt-1">{label}</span>
+      <span className="text-xs mt-1 font-medium">{label}</span>
     </button>
   );
   
   return (
-    <div className="absolute bottom-0 left-0 right-0 bg-black/90 py-3 border-t border-gray-700">
-      <div className="flex justify-evenly px-6">
-        <GameButton 
-          icon={<X size={20} />} 
-          label="CLEAR BETS" 
-          onClick={() => {}} 
-          disabled={!isPlaying || player.hand.length > 0}
-          color="bg-gray-800"
-        />
-        
-        <GameButton 
-          icon={<Building2 size={20} />} 
-          label="INSURANCE" 
-          onClick={() => {}} 
-          disabled={!isPlaying || player.hand.length > 2}
-          color="bg-gray-800"
-        />
-        
+    <div className="w-full bg-black/90 py-4 rounded-lg border border-amber-600/30 backdrop-blur-sm">
+      <div className="flex justify-center items-center gap-6 px-6 flex-wrap">
         <GameButton 
           icon={<ChevronsUp size={20} />} 
           label="DOUBLE" 
           onClick={doubleDown} 
           disabled={!isPlaying || player.hand.length > 2 || player.bet > player.chips}
-          color="bg-gray-800"
-        />
-        
-        <GameButton 
-          icon={<CornerRightDown size={20} />} 
-          label="DOUBLE & DEAL" 
-          onClick={() => {
-            if (isPlaying) doubleDown();
-          }} 
-          disabled={!isPlaying || player.hand.length > 2 || player.bet > player.chips}
-          color="bg-gray-800"
-        />
-        
-        <GameButton 
-          icon={<Split size={20} />} 
-          label="SPLIT" 
-          onClick={() => {}} 
-          disabled={true} // Not implemented yet
-          color="bg-gray-800"
+          color="bg-amber-700"
         />
         
         <GameButton 
           icon={<RefreshCw size={20} />} 
-          label="REBET" 
-          onClick={() => {}} 
+          label="NEW HAND" 
+          onClick={resetGame} 
           disabled={!isGameOver}
-          color="bg-gray-800"
+          color="bg-emerald-700"
         />
         
-        <GameButton 
-          icon={<CornerRightDown size={20} />} 
-          label={isPlaying ? "HIT" : "DEAL"} 
-          onClick={isPlaying ? hit : resetGame} 
-          color="bg-gray-800"
-        />
+        {isPlaying && (
+          <>
+            <GameButton 
+              icon={<CornerRightDown size={20} />} 
+              label="HIT" 
+              onClick={hit} 
+              color="bg-blue-700"
+            />
+            
+            <GameButton 
+              icon={<X size={20} />} 
+              label="STAND" 
+              onClick={stand}
+              color="bg-rose-700"
+            />
+          </>
+        )}
       </div>
     </div>
   );

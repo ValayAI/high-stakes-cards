@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { GameState, Card, Hand, GameStatus } from "@/types/game";
 import { createDeck, shuffleDeck, calculateScore, hasBlackjack, isBusted } from "@/utils/cardUtils";
@@ -62,14 +61,57 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         return state;
       }
       
-      return {
+      // Apply the bet
+      const newState = {
         ...state,
         player: {
           ...state.player,
           bet: amount,
           chips: state.player.chips - amount,
         },
-        message: "Bet placed. Deal the cards!",
+        message: "Placing bet...",
+      };
+      
+      // Now immediately deal cards
+      const newDeck = shuffleDeck(createDeck());
+      
+      // Deal first 4 cards
+      const playerCard1 = { ...newDeck.pop()!, faceUp: true };
+      const dealerCard1 = { ...newDeck.pop()!, faceUp: true };
+      const playerCard2 = { ...newDeck.pop()!, faceUp: true };
+      const dealerCard2 = { ...newDeck.pop()!, faceUp: false };
+      
+      const playerHand: Hand = [playerCard1, playerCard2];
+      const dealerHand: Hand = [dealerCard1, dealerCard2];
+      
+      const playerScore = calculateScore(playerHand);
+      const dealerVisibleScore = calculateScore([dealerCard1]);
+      
+      const playerHasBlackjack = hasBlackjack(playerHand);
+      
+      return {
+        ...newState,
+        deck: newDeck,
+        player: {
+          ...newState.player,
+          hand: playerHand,
+          score: playerScore,
+          hasBlackjack: playerHasBlackjack,
+          busted: false,
+          isStanding: false,
+          hasPush: false,
+        },
+        dealer: {
+          hand: dealerHand,
+          score: dealerVisibleScore,
+          busted: false,
+          hasBlackjack: false,
+          isRevealed: false,
+        },
+        status: playerHasBlackjack ? "dealerTurn" : "playing",
+        message: playerHasBlackjack 
+          ? "Blackjack! Dealer's turn." 
+          : "Your turn. Hit or Stand?",
       };
     }
 
@@ -180,7 +222,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         if (dealerHasBlackjack) {
           // Both have blackjack, push
           playerChips += state.player.bet;
-          message = "Push! Both have High Stakes.";
+          message = "Push! Both have Blackjack.";
           hasPush = true;
           newStatus = "gameOver";
         } else {
@@ -188,11 +230,11 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           const blackjackPayout = state.player.bet * 2.5;
           playerChips += blackjackPayout;
           winnings += blackjackPayout - state.player.bet;
-          message = "You win with High Stakes!";
+          message = "You win with Blackjack!";
           newStatus = "gameOver";
         }
       } else if (dealerHasBlackjack) {
-        message = "Dealer has High Stakes! Dealer wins.";
+        message = "Dealer has Blackjack! Dealer wins.";
         newStatus = "gameOver";
       }
       
@@ -217,10 +259,13 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
 
     case "DEALER_HIT": {
-      // Only proceed if we're in the dealer's turn AND neither player has blackjack
-      if (state.status !== "dealerTurn" || 
-          state.player.hasBlackjack || 
-          state.dealer.hasBlackjack) {
+      // Only proceed if we're in the dealer's turn
+      if (state.status !== "dealerTurn") {
+        return state;
+      }
+      
+      // And neither player nor dealer has blackjack
+      if (state.player.hasBlackjack || state.dealer.hasBlackjack) {
         return state;
       }
       

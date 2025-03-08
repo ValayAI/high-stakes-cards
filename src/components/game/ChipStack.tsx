@@ -12,8 +12,8 @@ const ChipStack: React.FC<ChipStackProps> = ({ amount, onClick, selected = false
   // Determine color based on chip value
   const getChipColor = () => {
     if (amount <= 5) return "bg-red-500";
-    if (amount <= 25) return "bg-green-500";
-    if (amount <= 50) return "bg-blue-500";
+    if (amount <= 25) return "bg-blue-500";
+    if (amount <= 50) return "bg-green-500";
     if (amount <= 100) return "bg-purple-500";
     return "bg-amber-500";
   };
