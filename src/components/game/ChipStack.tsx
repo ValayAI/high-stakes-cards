@@ -22,7 +22,7 @@ const ChipStack: React.FC<ChipStackProps> = ({ amount, onClick, selected = false
     <button
       className={`relative w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg ${getChipColor()} 
       border-4 border-white/30 hover:scale-110 transform transition-all duration-200 
-      ${selected ? "ring-4 ring-white ring-opacity-70" : ""}`}
+      ${selected ? "ring-4 ring-white ring-opacity-70 scale-110" : ""}`}
       onClick={onClick}
     >
       <Coins className="absolute text-white/20 w-10 h-10" />

@@ -12,11 +12,11 @@ const GameBoard: React.FC = () => {
   const { player, dealer, status, message } = state;
   
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="flex flex-col items-center gap-10 p-6 bg-green-800 rounded-3xl shadow-2xl border-8 border-amber-950/50 min-h-[600px]">
+    <div className="w-full max-w-5xl mx-auto">
+      <div className="flex flex-col items-center gap-8 p-6 bg-green-800 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/9a705cdc-4772-449f-9acf-daf43e60922a.png')] bg-cover">
         <div className="w-full text-center">
           <h1 className="text-4xl font-bold text-amber-300 tracking-wide mb-2 text-shadow">
-            High Stakes Showdown
+            European Blackjack
           </h1>
           
           <Alert className={`mx-auto w-fit text-white border-none ${
@@ -57,8 +57,22 @@ const GameBoard: React.FC = () => {
           </div>
         )}
         
-        <div className="bg-black/30 px-4 py-2 rounded-lg text-white">
-          Chips: ${player.chips} {player.bet > 0 && `| Current Bet: $${player.bet}`}
+        {/* Game stats display */}
+        <div className="absolute bottom-0 left-0 right-0 bg-black/70 py-2 px-4 flex justify-between text-white">
+          <div className="flex flex-col items-start">
+            <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
+            <div className="text-2xl font-bold">${player.bet}</div>
+          </div>
+          
+          <div className="flex flex-col items-start">
+            <div className="text-xs uppercase tracking-wide text-gray-400">BALANCE</div>
+            <div className="text-2xl font-bold">${player.chips}</div>
+          </div>
+          
+          <div className="flex flex-col items-end">
+            <div className="text-xs uppercase tracking-wide text-gray-400">WON</div>
+            <div className="text-2xl font-bold">${state.player.winnings || 0}</div>
+          </div>
         </div>
       </div>
     </div>

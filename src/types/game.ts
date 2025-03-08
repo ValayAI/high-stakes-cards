@@ -19,6 +19,7 @@ export interface Player {
   hasBlackjack: boolean;
   hasPush: boolean;
   isStanding: boolean;
+  winnings?: number; // Track total winnings
 }
 
 export interface Dealer {

@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { GameState, Card, Hand, GameStatus } from "@/types/game";
 import { createDeck, shuffleDeck, calculateScore, hasBlackjack, isBusted } from "@/utils/cardUtils";
@@ -24,6 +25,7 @@ const initialState: GameState = {
     hasBlackjack: false,
     hasPush: false,
     isStanding: false,
+    winnings: 0,
   },
   dealer: {
     hand: [],
@@ -172,6 +174,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       let message = state.message;
       let playerChips = state.player.chips;
       let hasPush = false;
+      let winnings = state.player.winnings || 0;
       
       if (state.player.hasBlackjack) {
         if (dealerHasBlackjack) {
@@ -182,7 +185,9 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           newStatus = "gameOver";
         } else {
           // Player has blackjack, dealer doesn't
-          playerChips += state.player.bet * 2.5;
+          const blackjackPayout = state.player.bet * 2.5;
+          playerChips += blackjackPayout;
+          winnings += blackjackPayout - state.player.bet;
           message = "You win with High Stakes!";
           newStatus = "gameOver";
         }
@@ -204,6 +209,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           ...state.player,
           chips: playerChips,
           hasPush,
+          winnings,
         },
         status: newStatus,
         message,
@@ -232,16 +238,21 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       const dealerBusted = isBusted(dealerScore);
       let message = "";
       let playerChips = state.player.chips;
+      let winnings = state.player.winnings || 0;
       let hasPush = false;
       
       if (dealerBusted) {
         message = "Dealer busted! You win.";
-        playerChips += state.player.bet * 2;
+        const payout = state.player.bet * 2;
+        playerChips += payout;
+        winnings += payout - state.player.bet;
       } else if (dealerScore > state.player.score) {
         message = "Dealer wins.";
       } else if (dealerScore < state.player.score) {
         message = "You win!";
-        playerChips += state.player.bet * 2;
+        const payout = state.player.bet * 2;
+        playerChips += payout;
+        winnings += payout - state.player.bet;
       } else {
         message = "Push! It's a tie.";
         playerChips += state.player.bet;
@@ -262,6 +273,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           ...state.player,
           chips: playerChips,
           hasPush,
+          winnings,
         },
         status: "gameOver",
         message,
@@ -301,11 +313,26 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
 
     case "RESET_GAME": {
+      // Don't reset if player has no chips - game is over
+      if (state.player.chips <= 0) {
+        toast({
+          title: "Game Over!",
+          description: "You've run out of chips. Refresh the page to start a new game.",
+          variant: "destructive",
+        });
+        return {
+          ...state,
+          message: "Game Over! You've run out of chips.",
+        };
+      }
+      
+      // Continue the game with current chips amount
       return {
         ...initialState,
         player: {
           ...initialState.player,
           chips: state.player.chips,
+          winnings: state.player.winnings,
         },
       };
     }

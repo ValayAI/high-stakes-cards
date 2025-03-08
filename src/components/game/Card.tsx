@@ -11,10 +11,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
   if (!card.faceUp) {
     // Card back design
     return (
-      <div className="w-24 h-36 rounded-lg border-2 border-white bg-gradient-to-br from-blue-900 to-blue-700 shadow-lg flex items-center justify-center text-white animate-fade-in">
+      <div className="w-24 h-36 rounded-md border-2 border-gray-400 bg-gradient-to-br from-red-700 to-red-900 shadow-lg flex items-center justify-center text-white animate-fade-in">
         <div className="grid grid-cols-3 grid-rows-3 gap-1">
           {[...Array(9)].map((_, i) => (
-            <div key={i} className="w-4 h-4 rounded-full bg-blue-500"></div>
+            <div key={i} className="w-4 h-4 rounded-full bg-red-500/40"></div>
           ))}
         </div>
       </div>
@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
   };
 
   return (
-    <div className="w-24 h-36 rounded-lg border-2 border-gray-300 bg-white shadow-lg relative flex flex-col justify-between p-2 animate-fade-in">
+    <div className="w-24 h-36 rounded-md border border-gray-300 bg-[#faf6eb] shadow-lg relative flex flex-col justify-between p-2 animate-fade-in">
       <div className={`flex items-center ${getSuitColor(card.suit)}`}>
         <span className="text-lg font-bold mr-1">{card.rank}</span>
         {getSuitIcon(card.suit)}
