@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { GameState, Card, Hand, GameStatus } from "@/types/game";
 import { createDeck, shuffleDeck, calculateScore, hasBlackjack, isBusted } from "@/utils/cardUtils";
@@ -259,12 +260,11 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
 
     case "DEALER_HIT": {
-      // Only proceed if we're in the dealer's turn
       if (state.status !== "dealerTurn") {
         return state;
       }
       
-      // And neither player nor dealer has blackjack
+      // Skip if player or dealer already has blackjack
       if (state.player.hasBlackjack || state.dealer.hasBlackjack) {
         return state;
       }
@@ -290,14 +290,15 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         message = "Dealer busted! You win.";
         const payout = state.player.bet * 2;
         playerChips += payout;
-        winnings += payout - state.player.bet;
+        winnings += state.player.bet;
       } else if (dealerScore > state.player.score) {
         message = "Dealer wins.";
+        // Player already lost their bet when they placed it
       } else if (dealerScore < state.player.score) {
         message = "You win!";
         const payout = state.player.bet * 2;
         playerChips += payout;
-        winnings += payout - state.player.bet;
+        winnings += state.player.bet;
       } else {
         message = "Push! It's a tie.";
         playerChips += state.player.bet;

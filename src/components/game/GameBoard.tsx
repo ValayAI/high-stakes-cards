@@ -13,8 +13,8 @@ const GameBoard: React.FC = () => {
   
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <div className="flex flex-col items-center gap-8 p-6 bg-emerald-800 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/9a705cdc-4772-449f-9acf-daf43e60922a.png')] bg-cover">
-        <div className="w-full text-center">
+      <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/9a705cdc-4772-449f-9acf-daf43e60922a.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
+        <div className="w-full text-center z-10">
           <h1 className="text-4xl font-bold text-amber-300 tracking-wide mb-2 drop-shadow-lg">
             Blackjack
           </h1>
@@ -38,12 +38,12 @@ const GameBoard: React.FC = () => {
         </div>
         
         {(status !== "betting" || dealer.hand.length > 0) && (
-          <div className="w-full">
+          <div className="w-full z-10">
             <Hand cards={dealer.hand} score={dealer.score} isDealer label="Dealer" />
           </div>
         )}
         
-        <div className="flex-grow flex items-center justify-center">
+        <div className="flex-grow flex items-center justify-center z-10">
           {status === "betting" && dealer.hand.length === 0 ? (
             <BettingArea />
           ) : (
@@ -52,13 +52,13 @@ const GameBoard: React.FC = () => {
         </div>
         
         {(status !== "betting" || player.hand.length > 0) && (
-          <div className="w-full mt-auto">
+          <div className="w-full mt-auto z-10">
             <Hand cards={player.hand} score={player.score} label="Your Hand" />
           </div>
         )}
         
         {/* Game stats display */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black/70 py-2 px-4 flex justify-between text-white backdrop-blur-sm">
+        <div className="absolute bottom-0 left-0 right-0 bg-black/70 py-2 px-4 flex justify-between text-white backdrop-blur-sm z-10">
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
             <div className="text-2xl font-bold">${player.bet}</div>
