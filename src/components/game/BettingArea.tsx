@@ -21,7 +21,7 @@ const BettingArea: React.FC = () => {
   };
   
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md w-full bg-black/40 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
+    <div className="w-full max-w-md mx-auto bg-black/70 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
       <h2 className="text-amber-300 text-3xl mb-6 text-center font-bold" style={{ fontFamily: 'Georgia, serif' }}>Place Your Bet</h2>
       
       <div className="flex justify-center mb-6 gap-2 flex-wrap">
@@ -44,16 +44,14 @@ const BettingArea: React.FC = () => {
           <span className="text-white">Chips: ${state.player.chips}</span>
         </div>
         
-        <div className="flex gap-4">
-          <Button 
-            variant="default" 
-            className="bg-amber-600 hover:bg-amber-700 text-white font-bold"
-            onClick={handlePlaceBet}
-            disabled={!selectedBet || selectedBet > state.player.chips}
-          >
-            Place Bet
-          </Button>
-        </div>
+        <Button 
+          variant="default" 
+          className="bg-amber-600 hover:bg-amber-700 text-white font-bold w-full mt-2"
+          onClick={handlePlaceBet}
+          disabled={!selectedBet || selectedBet > state.player.chips}
+        >
+          Place Bet
+        </Button>
       </div>
     </div>
   );

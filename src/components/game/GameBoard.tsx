@@ -45,7 +45,7 @@ const GameBoard: React.FC = () => {
           </div>
         )}
         
-        <div className="flex-grow flex items-center justify-center z-10 w-full">
+        <div className="flex-grow flex items-center justify-center z-10 w-full py-4">
           {status === "betting" && dealer.hand.length === 0 ? (
             <BettingArea />
           ) : (
@@ -59,21 +59,21 @@ const GameBoard: React.FC = () => {
           </div>
         )}
         
-        {/* Game stats display - moved up to avoid being cut off */}
-        <div className="absolute bottom-3 left-0 right-0 bg-black/70 py-3 px-4 flex justify-between text-white backdrop-blur-sm z-10">
+        {/* Game stats display */}
+        <div className="absolute bottom-0 left-0 right-0 bg-black/80 py-2 px-4 flex justify-between text-white backdrop-blur-sm z-10">
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
-            <div className="text-xl font-bold">${player.bet}</div>
+            <div className="text-lg font-bold">${player.bet}</div>
           </div>
           
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BALANCE</div>
-            <div className="text-xl font-bold">${player.chips}</div>
+            <div className="text-lg font-bold">${player.chips}</div>
           </div>
           
           <div className="flex flex-col items-end">
             <div className="text-xs uppercase tracking-wide text-gray-400">WON</div>
-            <div className="text-xl font-bold">${state.player.winnings || 0}</div>
+            <div className="text-lg font-bold">${state.player.winnings || 0}</div>
           </div>
         </div>
       </div>
