@@ -181,7 +181,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         message = "Hit or Stand?";
       }
       
-      return {
+      const updatedState = {
         ...state,
         deck: newDeck,
         player: {
@@ -193,6 +193,15 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         status: newStatus,
         message,
       };
+      
+      // Automatically trigger dealer's turn if player busted or has 21
+      if (newStatus === "dealerTurn") {
+        // We return the updated state so the UI updates first,
+        // then we'll trigger the dealer's turn through a side effect
+        return updatedState;
+      }
+      
+      return updatedState;
     }
 
     case "STAND": {
@@ -413,13 +422,24 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const hit = () => {
     if (state.status === "playing") {
       dispatch({ type: "HIT" });
+      
+      // Check if we need to trigger dealer's turn after state update
+      setTimeout(() => {
+        if (state.status === "dealerTurn") {
+          dealerTurn();
+        }
+      }, 500);
     }
   };
 
   const stand = () => {
     if (state.status === "playing") {
       dispatch({ type: "STAND" });
-      dealerTurn();
+      
+      // Automatically trigger dealer's turn
+      setTimeout(() => {
+        dealerTurn();
+      }, 500);
     }
   };
 
@@ -438,6 +458,8 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (state.status === "playing" && state.player.hand.length === 2) {
       if (state.player.bet <= state.player.chips) {
         dispatch({ type: "DOUBLE_DOWN" });
+        
+        // Automatically trigger dealer's turn
         setTimeout(dealerTurn, 1000);
       } else {
         toast({
@@ -452,6 +474,14 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const resetGame = () => {
     dispatch({ type: "RESET_GAME" });
   };
+
+  // Automatically trigger dealer's turn when the status changes
+  React.useEffect(() => {
+    if (state.status === "dealerTurn") {
+      // Small delay to allow UI to update
+      setTimeout(dealerTurn, 500);
+    }
+  }, [state.status]);
 
   return (
     <GameContext.Provider

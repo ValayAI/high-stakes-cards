@@ -16,7 +16,7 @@ const GameBoard: React.FC = () => {
       <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/9a705cdc-4772-449f-9acf-daf43e60922a.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
         <div className="w-full text-center z-10">
           <h1 className="text-4xl font-bold text-amber-300 tracking-wide mb-2 drop-shadow-lg">
-            Blackjack
+            Royal Flush
           </h1>
           
           <Alert className={`mx-auto w-fit text-white border-none backdrop-blur-sm ${
