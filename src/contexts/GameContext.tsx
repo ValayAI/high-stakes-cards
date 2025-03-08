@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { GameState, Card, Hand, GameStatus } from "@/types/game";
 import { createDeck, shuffleDeck, calculateScore, hasBlackjack, isBusted } from "@/utils/cardUtils";
@@ -124,7 +123,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       const newScore = calculateScore(newHand);
       const busted = isBusted(newScore);
       
-      let newStatus = state.status;
+      let newStatus: GameStatus = state.status;
       let message = state.message;
       
       if (busted) {

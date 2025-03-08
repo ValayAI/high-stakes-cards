@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Coin } from "lucide-react";
+import { Coins } from "lucide-react";
 
 interface ChipStackProps {
   amount: number;
@@ -25,7 +25,7 @@ const ChipStack: React.FC<ChipStackProps> = ({ amount, onClick, selected = false
       ${selected ? "ring-4 ring-white ring-opacity-70" : ""}`}
       onClick={onClick}
     >
-      <Coin className="absolute text-white/20 w-10 h-10" />
+      <Coins className="absolute text-white/20 w-10 h-10" />
       <span className="text-sm font-bold z-10">${amount}</span>
     </button>
   );
