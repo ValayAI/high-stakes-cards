@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { GameState, Card, Hand, GameStatus } from "@/types/game";
 import { createDeck, shuffleDeck, calculateScore, hasBlackjack, isBusted } from "@/utils/cardUtils";
@@ -212,17 +211,10 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
 
     case "DEALER_HIT": {
-      // The issue is with this condition - we need to properly check each condition
-      if (state.status !== "dealerTurn") {
-        return state;
-      }
-      
-      if (state.player.hasBlackjack || state.dealer.hasBlackjack) {
-        return state;
-      }
-      
-      // Check gameOver status separately to avoid type comparison error
-      if (state.status === "gameOver") {
+      // Only proceed if we're in the dealer's turn AND neither player has blackjack
+      if (state.status !== "dealerTurn" || 
+          state.player.hasBlackjack || 
+          state.dealer.hasBlackjack) {
         return state;
       }
       
