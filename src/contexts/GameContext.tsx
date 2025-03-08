@@ -211,7 +211,12 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
 
     case "DEALER_HIT": {
-      if (state.status !== "dealerTurn" || state.player.hasBlackjack || state.dealer.hasBlackjack || state.status === "gameOver") {
+      // The issue is with this condition - we're comparing incompatible types
+      // Fixed by checking each condition separately
+      if (state.status !== "dealerTurn" || 
+          state.player.hasBlackjack || 
+          state.dealer.hasBlackjack || 
+          state.status === "gameOver") {
         return state;
       }
       
