@@ -13,12 +13,14 @@ const GameBoard: React.FC = () => {
   
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/9a705cdc-4772-449f-9acf-daf43e60922a.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
-        <div className="w-full text-center z-10">
-          <h1 className="text-4xl font-bold text-amber-300 tracking-wide mb-2 drop-shadow-lg">
+      <div className="flex flex-col items-center gap-8 p-6 bg-gradient-to-b from-emerald-800/90 via-emerald-700/80 to-emerald-900/90 rounded-xl shadow-2xl border-8 border-amber-950/50 min-h-[600px] relative bg-[url('/lovable-uploads/b93821dc-bb88-4840-b44a-76a313ebadb5.png')] bg-cover before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-teal-800/30 before:via-emerald-600/20 before:to-blue-900/30 before:z-0 overflow-hidden backdrop-blur-sm">
+        <div className="absolute top-2 left-4 z-10 text-left">
+          <h1 className="text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-500 drop-shadow-md" style={{ fontFamily: 'Georgia, serif' }}>
             Royal Flush
           </h1>
-          
+        </div>
+        
+        <div className="w-full text-center z-10 mt-14">
           <Alert className={`mx-auto w-fit text-white border-none backdrop-blur-sm ${
             message.includes("win") || message.includes("Blackjack") 
               ? "bg-emerald-700/80"
@@ -43,7 +45,7 @@ const GameBoard: React.FC = () => {
           </div>
         )}
         
-        <div className="flex-grow flex items-center justify-center z-10">
+        <div className="flex-grow flex items-center justify-center z-10 w-full">
           {status === "betting" && dealer.hand.length === 0 ? (
             <BettingArea />
           ) : (
@@ -58,7 +60,7 @@ const GameBoard: React.FC = () => {
         )}
         
         {/* Game stats display - moved up to avoid being cut off */}
-        <div className="absolute bottom-1 left-0 right-0 bg-black/70 py-2 px-4 flex justify-between text-white backdrop-blur-sm z-10">
+        <div className="absolute bottom-3 left-0 right-0 bg-black/70 py-3 px-4 flex justify-between text-white backdrop-blur-sm z-10">
           <div className="flex flex-col items-start">
             <div className="text-xs uppercase tracking-wide text-gray-400">BET</div>
             <div className="text-xl font-bold">${player.bet}</div>

@@ -21,10 +21,10 @@ const BettingArea: React.FC = () => {
   };
   
   return (
-    <div className="bg-black/40 p-6 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
-      <h2 className="text-amber-300 text-2xl mb-4 text-center font-bold">Place Your Bet</h2>
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md w-full bg-black/40 p-8 rounded-xl shadow-xl backdrop-blur-sm border border-amber-500/20">
+      <h2 className="text-amber-300 text-3xl mb-6 text-center font-bold" style={{ fontFamily: 'Georgia, serif' }}>Place Your Bet</h2>
       
-      <div className="flex justify-center mb-6 gap-2">
+      <div className="flex justify-center mb-6 gap-2 flex-wrap">
         {chipValues.map((value) => (
           <ChipStack 
             key={value} 
